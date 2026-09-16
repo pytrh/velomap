@@ -1,0 +1,50 @@
+/* Styles for the page component only (Angular scopes them to app.html). */
+.page {
+  display: flex;
+  height: 100vh;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 18rem;
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
+}
+
+.hint {
+  margin: 0;
+  color: #374151;
+}
+
+select,
+button {
+  font: inherit;
+  padding: 0.5rem;
+}
+
+button {
+  width: 100%;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.distance {
+  margin: 0 0 0.75rem;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.map {
+  flex: 1;
+}

@@ -1,0 +1,34 @@
+<!--
+  Template of the page component (app.ts). Plain HTML plus Angular syntax:
+  {{ x() }} prints a signal's value, (event)="..." calls a method, [prop]="..."
+  sets a DOM property, and @if shows a block only when its condition is true.
+-->
+<main class="page">
+  <section class="panel" aria-label="Route planner">
+    <h1>Velomap</h1>
+    <p class="hint">{{ hint() }}</p>
+
+    <label for="profile">Bike profile</label>
+    <select id="profile" [value]="profile()" (change)="onProfileChange($any($event.target).value)">
+      @for (option of profiles; track option.value) {
+        <option [value]="option.value">{{ option.label }}</option>
+      }
+    </select>
+
+    <button type="button" (click)="computeRoute()" [disabled]="!start() || !destination() || loading()">
+      {{ loading() ? 'Computing…' : 'Compute route' }}
+    </button>
+
+    <div aria-live="polite">
+      @if (distanceKm(); as km) {
+        <p class="distance">Distance: <strong>{{ km }} km</strong></p>
+        <button type="button" (click)="downloadGpx()">Download GPX</button>
+      }
+      @if (error(); as message) {
+        <p class="error" role="alert">{{ message }}</p>
+      }
+    </div>
+  </section>
+
+  <div #map class="map" role="application" aria-label="Map: click to set start and destination"></div>
+</main>

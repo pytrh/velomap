@@ -1,0 +1,5 @@
+/* Global styles, applied to the whole page (Leaflet's own CSS is added in angular.json). */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
