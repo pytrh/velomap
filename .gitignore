@@ -1,1 +1,5 @@
 .env
+.DS_Store
+# frontend/ was scaffolded as its own git repo; its .git was moved here so the
+# frontend files are tracked by this repo instead of as a submodule pointer.
+.frontend-git-backup/
