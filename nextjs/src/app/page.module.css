@@ -1,0 +1,51 @@
+/* Styles for page.tsx and RouteMap.tsx. A ".module.css" file is scoped: Next.js
+   renames each class so it can't clash with another file's, and components
+   use them as styles.panel, styles.map, ... */
+.page {
+  display: flex;
+  height: 100vh;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 18rem;
+  padding: 1.25rem;
+}
+
+.panel select,
+.panel button {
+  font: inherit;
+  padding: 0.5rem;
+}
+
+.panel button {
+  width: 100%;
+  cursor: pointer;
+}
+
+.panel button:disabled {
+  cursor: not-allowed;
+}
+
+.panel h1,
+.hint {
+  margin: 0;
+}
+
+.hint {
+  color: #374151;
+}
+
+.distance {
+  margin: 0 0 0.75rem;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.map {
+  flex: 1;
+}

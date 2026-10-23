@@ -4,7 +4,11 @@ Cycling route planner. A rider picks a start, a destination and a bike profile;
 Velomap computes a route, shows it on a map, and exports it as GPX for a bike
 computer.
 
-Personal project. I'm new to Spring Boot and Angular.
+Personal project. I'm new to Spring Boot, Angular and Next.js.
+
+The repo holds the same app built twice: `spring-angular/` (Java + Angular) and
+`nextjs/` (TypeScript throughout). Both must keep the same API contract and
+behaviour; a change to one usually belongs in the other too.
 
 ## Build this tonight, nothing more
 
@@ -23,9 +27,20 @@ list, don't build it.
 
 ## Stack
 
+**`spring-angular/`**
+
 - Java 21, Spring Boot 3.x, Maven. groupId `fr.josephsong`, artifactId
   `velomap`, package `fr.josephsong.velomap`
 - Angular 20+, standalone components, signals, `@if` / `@for`
+
+**`nextjs/`**
+
+- Next.js (App Router), TypeScript, React. Route Handlers under
+  `src/app/api/` are the backend; no separate server framework
+- `next.config.ts` loads the repo-root `.env`
+
+**Both**
+
 - Leaflet with OpenStreetMap tiles
 - Routing: hosted GraphHopper Routing API, key read from the
   `GRAPHHOPPER_API_KEY` environment variable. Never hardcode it, never commit
@@ -52,17 +67,20 @@ Put this in the service as a TODO, in these words:
 
 ## Layout
 
-- `backend/` — Spring Boot
-- `frontend/` — Angular
+- `spring-angular/backend/` — Spring Boot
+- `spring-angular/frontend/` — Angular
+- `nextjs/` — Next.js (page and API)
+- `.env` at the repo root, shared by both, gitignored
 
 ## Commands
 
-- Backend: `cd backend && ./mvnw spring-boot:run` (port 8080)
-- Frontend: `cd frontend && npm start` (port 4200)
+- Spring backend: `cd spring-angular/backend && ./mvnw spring-boot:run` (port 8080)
+- Angular frontend: `cd spring-angular/frontend && npm start` (port 4200)
+- Next.js: `cd nextjs && npm run dev` (port 3000)
 
 ## Conventions
 
-**Backend**
+**Spring backend**
 
 - Three layers: `@RestController` → `@Service` → the GraphHopper client.
 - Constructor injection only, final fields, no `@Autowired`.
@@ -72,21 +90,31 @@ Put this in the service as a TODO, in these words:
 - CORS: allow `http://localhost:4200` on the controller so the Angular dev
   server can reach it.
 
-**Frontend**
+**Angular frontend**
 
 - HTTP in a service, never in a component.
 - One page component is fine. Don't split into a component tree for this.
 - Raw Leaflet via `npm install leaflet @types/leaflet`, initialised in
   `ngAfterViewInit`. No Angular wrapper library.
 
+**Next.js**
+
+- Same three layers as plain modules: route handler → `route-service.ts` →
+  `graphhopper.ts`. Server-side modules import `"server-only"`.
+- Types that mirror GraphHopper's JSON stay in `graphhopper.ts`, separate from
+  our API types in `types.ts`.
+- Browser HTTP in `route-client.ts`, never in a component.
+- One page component plus the map component. Raw Leaflet in `useEffect`,
+  loaded with `dynamic(..., { ssr: false })`. No react-leaflet.
+
 ## Explaining the code
 
 Put a short comment at the top of every file saying what it does and why it
-exists, written for someone who has never used Spring or Angular. No commentary
+exists, written for someone who has never used Spring, Angular, React or Next.js. No commentary
 in chat, comments in the files only.
 
-Also write `NOTES.md` at the repo root: one page, plain language, covering how
-a request flows from the browser to GraphHopper and back, what each file is
-for, and the two or three decisions worth defending in an interview (why a GET,
-why DTOs separate from the GraphHopper response, why the profiles are
-incomplete).
+`NOTES.md` at the repo root holds the shared API contract and the decisions
+worth defending in an interview (why a GET, why DTOs separate from the
+GraphHopper response, why the profiles are incomplete). Each implementation has
+its own `NOTES.md`: one page, plain language, covering how a request flows from
+the browser to GraphHopper and back and what each file is for.

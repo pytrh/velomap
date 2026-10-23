@@ -1,0 +1,10 @@
+/* Styles for the whole site, loaded once by layout.tsx. Page-specific styles
+   are in page.module.css. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
