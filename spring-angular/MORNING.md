@@ -1,5 +1,8 @@
 # Good morning
 
+> Status report from the first night, when this was the only implementation.
+> Paths below are relative to `spring-angular/`.
+
 ## What works (verified tonight, not just compiled)
 
 - **`GET /api/route`**: curled with Bordeaux 44.8378,-0.5792 → 44.8600,-0.5500,
@@ -66,12 +69,12 @@
 
 Terminal 1:
 ```
-cd ~/Dev/Velomap/backend && ./mvnw spring-boot:run
+cd ~/Dev/Velomap/spring-angular/backend && ./mvnw spring-boot:run
 ```
 
 Terminal 2:
 ```
-cd ~/Dev/Velomap/frontend && npm start
+cd ~/Dev/Velomap/spring-angular/frontend && npm start
 ```
 
 Then open http://localhost:4200, click a start, click a destination, press
